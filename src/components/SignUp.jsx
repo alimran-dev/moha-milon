@@ -1,9 +1,20 @@
+import { useContext } from "react";
+import { AuthContext } from "../providers/AuthProvider";
+
 const SignUp = () => {
+  const {createUser} = useContext(AuthContext)
   const handleSignUp = (e) => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
     console.log(email, password);
+    createUser(email, password)
+      .then(result => {
+      console.log(result.user)
+    })
+      .catch(error => {
+        console.error(error);
+    })
   };
 
   return (
@@ -26,6 +37,7 @@ const SignUp = () => {
                 placeholder="Email"
                 name="email"
                 className="input input-bordered"
+                required
               />
             </div>
             <div className="form-control">
@@ -37,6 +49,7 @@ const SignUp = () => {
                 placeholder="Password"
                 name="password"
                 className="input input-bordered"
+                required
               />
               <label className="label">
                 <a href="#" className="label-text-alt link link-hover">
